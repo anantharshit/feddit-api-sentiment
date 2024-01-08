@@ -19,21 +19,22 @@ def say_hello():
 
 @app.route('/get_comments', methods=['GET'])
 def get_comments():
-
-    subfeddit_id = request.args.get('subfeddit')
-    start_time = request.args.get('start_time', None)
-    end_time = request.args.get('end_time', None)
-    sort_by = request.args.get('sort_by', None)
+    try:
+        subfeddit_id = request.args.get('subfeddit')
+        start_time = request.args.get('start_time', None)
+        end_time = request.args.get('end_time', None)
+        sort_by = request.args.get('sort_by', None)
+        
+        apil_url = "http://feddit:8080/api/v1/subfeddit?subfeddit_id="
+        input_subfeddit_id = subfeddit_id
+        complete_url = apil_url+input_subfeddit_id
+        get_subfeddits = requests.get(complete_url)
     
-    apil_url = "http://feddit:8080/api/v1/subfeddit?subfeddit_id="
-    input_subfeddit_id = subfeddit_id
-    complete_url = apil_url+input_subfeddit_id
-    get_subfeddits = requests.get(complete_url)
-
-    get_subfeddits_comm = json.loads(get_subfeddits.text)
-    subfeddit_data = filter_subfeddits(get_subfeddits_comm, start_time, end_time, sort_by, subfeddit_id)
-    
-    return subfeddit_data
+        get_subfeddits_comm = json.loads(get_subfeddits.text)
+        subfeddit_data = filter_subfeddits(get_subfeddits_comm, start_time, end_time, sort_by, subfeddit_id)
+        return subfeddit_data
+    except Exception as e:
+        return {"Error": str(e)}
     
     
 def change_datetime(data, start_time, end_time):
