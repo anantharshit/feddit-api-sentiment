@@ -23,5 +23,6 @@ To sort the output based on polarity:
 
 http://localhost:5000/get_comments?subfeddit=1&sort_by=polarity
 
-#Screenshots
+# Screenshots
 ![](https://github.com/anantharshit/feddit-api-sentiment/blob/main/screenshots/sorted.JPG)
+![](https://github.com/anantharshit/feddit-api-sentiment/blob/main/screenshots/unfiltered.JPG)
